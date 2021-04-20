@@ -11,15 +11,17 @@ router.get('/drones', async (req, res, next) => {
     res.render('drones/list', {dronesFromDB})
 });
 
-router.get('/drones/create', (req, res, next) => {
+router.get('/drones/create', async (req, res, next) => {
   // Iteration #3: Add a new drone
-  // ... your code here
+  res.render('drones/create-form')
 });
 
-router.post('/drones/create', (req, res, next) => {
+router.post('/drones/create', async (req, res, next) => {
   // Iteration #3: Add a new drone
-  // ... your code here
-});
+    const {name, propellers, maxSpeed} = req.body
+    await DroneModel.create(req.body)
+    res.redirect('/drones/')
+  })
 
 router.get('/drones/:id/edit', (req, res, next) => {
   // Iteration #4: Update the drone
