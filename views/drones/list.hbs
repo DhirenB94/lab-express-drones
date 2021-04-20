@@ -1,6 +1,13 @@
-<h2>Available drones</h2>
+<h2>Available drones:</h2>
     {{#each dronesFromDB}}
         <h3>Name: {{name}}</h3>
         <p>Number of propellers: {{propellers}}</p>
         <p>Maximum Speed: {{maxSpeed}}</p>
+        <a href="/drones/{{id}}/edit">Edit</a>
+        
+        <form action="/drones/{{id}}/delete" method="POST"> 
+            <button type="submit">Delete</button>
+        </form>
+        {{!-- deleting needs to be a button (not a link) so that you can change the mehtod to POST.
+        Links aleays have GET method --}}
     {{/each}}

@@ -23,19 +23,27 @@ router.post('/drones/create', async (req, res, next) => {
     res.redirect('/drones/')
   })
 
-router.get('/drones/:id/edit', (req, res, next) => {
+router.get('/drones/:id/edit', async (req, res, next) => {
   // Iteration #4: Update the drone
-  // ... your code here
+  const droneId = req.params.id;
+  const drone = await DroneModel.findById(droneId)
+  res.render('drones/update-form', {drone})
 });
 
-router.post('/drones/:id/edit', (req, res, next) => {
+router.post('/drones/:id/edit', async (req, res, next) => {
   // Iteration #4: Update the drone
-  // ... your code here
+  const droneId = req.params.id
+  const {name, propellers, maxSpeed} = req.body
+  await DroneModel.findByIdAndUpdate(droneId, req.body);
+  res.redirect('/drones/')
 });
 
-router.post('/drones/:id/delete', (req, res, next) => {
+
+router.post('/drones/:id/delete', async (req, res, next) => {
   // Iteration #5: Delete the drone
-  // ... your code here
+  const droneId = req.params.id
+  await DroneModel.findByIdAndDelete(droneId)
+  res.redirect('/drones/')
 });
 
 module.exports = router;
